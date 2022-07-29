@@ -15,3 +15,7 @@ Adicionado 2 novas funções:
 # versão 1.02
 
 1) Novo padrão para filtra contratos sem anexos, melhorando a fluídes do código
+
+# versão 1.03
+
+1) adicionado um novo filtro para convênios
