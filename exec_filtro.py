@@ -1,4 +1,5 @@
-from filtros.filtro_convenios import *
+from filtros import *
+from filtros import filtro_convenios
 
 def sendEmail():
     try:
@@ -7,7 +8,11 @@ def sendEmail():
     except Exception as emailError:
         print(f"Houve um erro ao enviar o e-mail: {emailError}")
 
-crawlingData()
-filtroSemAnexo()
-excelCreator()
+#Filtro de Convenios
+filtro_convenios.crawlingData()
+filtro_convenios.filtroSemAnexo()
+filtro_convenios.excelCreator()
+
+#Filtro de Contratos:
+
 sendEmail()
