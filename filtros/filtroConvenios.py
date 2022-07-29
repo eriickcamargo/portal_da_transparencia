@@ -1,12 +1,9 @@
 from cgitb import text
 from operator import index
-import time
 import urllib.request
 from xml.etree import cElementTree
 from bs4 import BeautifulSoup
-import csv
 from datetime import date
-import ezgmail
 import pandas as pd
 import numpy as np
 
@@ -66,7 +63,8 @@ def crawlingData():
                 cells[0].find(text=True), 
                 cells[1].find(text=True), 
                 int(cells[7].find(text=True))]])
-    #print(NUM_CONVENIOS)
+        print(f"{(pag / (totalPages)) * 100:.2f}% completados")
+
 def filtroSemAnexo():
     for innerList in NUM_CONVENIOS:
         if innerList[2] == 0:
@@ -77,23 +75,18 @@ def filtroSemAnexo():
 def excelCreator():
     array = np.array(CONVENIOS_SEM_ANEXO)
     df = pd.DataFrame(array)
-    df.to_excel(excel_writer='my_excel_test.xlsx', index=False,sheet_name='CONVENIOS',header=['data','n. do convenio','total de anexos'])
+    df.to_excel(excel_writer='CONVENIOS.xlsx', index=False,sheet_name='CONVENIOS',header=['Data de Lançamento','Num. do convenio','Total de Anexos'])
 
-#def sendEmail():
-#    try:
-#        emailBody = f"Bom dia, \nAqui está a relação de convênios sem anexo no Portal da Transparência, foram encontrados no total {len(CONVENIOS_SEM_ANEXO)} convenios sem anexo, até amanhã!"
-#        ezgmail.send('ericklimacamargo@gmail.com', 'Relação de Contratos Sem Anexo', emailBody, ['my_excel_test.xlsx'], 'Erick Automate', None,)
-#    except Exception as emailError:
-#        print(f"Houve um erro ao enviar o e-mail: {emailError}")
-
-try:
-    start = time.time()
+def main():
+    print('Filtro de Convênios Iniciado\n')
     crawlingData()
     filtroSemAnexo()
     excelCreator()
-    sendEmail()
-    stop = time.time()
+    print(f"\nFiltro de Convênios Finalizado\n\n{'*' * 50 }\n")
 
-except Exception as e:
-    print(e)
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        print(e)
 
