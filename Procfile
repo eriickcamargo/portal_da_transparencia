@@ -1,0 +1,1 @@
+worker: python novo_Filtro_Contrato.py
