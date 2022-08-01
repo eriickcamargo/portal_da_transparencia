@@ -1,14 +1,32 @@
+from multiprocessing.sharedctypes import Value
+from re import sub
 import ezgmail
 import time
-import filtros
 from filtros import filtroContrato
 from filtros import filtroConvenios
+from filtros import filtroLicitacao
 
 def sendEmail():
     try:
         emailBody = f"Bom dia, \nAqui está a resultado da varredura no Portal da Transparência, até amanhã!"
-        ezgmail.send('ericklimacamargo@gmail.com', 'Pendências do Portal da Transparência', emailBody, ['CONTRATOS.xlsx','CONVENIOS.xlsx'], 'Erick Automate', None,)
-    except Exception as emailError:
+        title = f"Portal da Transparência - Pendências"
+        attachments = ['CONTRATOS.xlsx','CONVENIOS.xlsx','LICITACOES.xlsx']
+        bcc = 'seplan@maraba.pa.gov.br,contratos.seplan@maraba.pa.gov.br'
+
+        ezgmail.send(recipient='ericklimacamargo@gmail.com',
+        subject=title,
+        body=emailBody,
+        attachments=attachments,
+        sender= 'Erick Automated',
+        bcc=bcc)
+
+        # ezgmail.send('ericklimacamargo@gmail.com',
+        # 'Pendências do Portal da Transparência',
+        # emailBody,
+        # ['CONTRATOS.xlsx','CONVENIOS.xlsx','LICITACOES.xlsx']
+        # , 'Erick Automate',
+        # None,)
+    except ValueError as emailError:
         print(f"Houve um erro ao enviar o e-mail: {emailError}")
 
 def main():
@@ -20,13 +38,16 @@ def main():
     #Filtro de Contratos:
     filtroContrato.main()
 
+    # Filtro de Licitações
+    filtroLicitacao.main()
+
     #Envia e-mail
-    #sendEmail()
+    sendEmail()
     end_timer = time.time()
     print(f"Foram necessários {end_timer - start_timer:.2f} segundos")
 
 if __name__ == '__main__':
     try:
         main()
-    except Exception as e:
+    except ValueError as e:
         print(e)
