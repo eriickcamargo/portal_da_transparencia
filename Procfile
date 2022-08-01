@@ -1,1 +1,1 @@
-worker: python novo_Filtro_Contrato.py
+worker: python exec_filtro.py
