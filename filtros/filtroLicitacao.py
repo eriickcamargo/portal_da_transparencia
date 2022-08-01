@@ -1,6 +1,5 @@
 from shutil import ExecError
 from time import strftime
-from tkinter import N
 import urllib.request
 from bs4 import BeautifulSoup
 from datetime import date
