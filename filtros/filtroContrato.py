@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 from shutil import ExecError
 from time import strftime
 import urllib.request
@@ -83,5 +84,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except Exception as e:
+    except ValueError as e:
         print(e)
