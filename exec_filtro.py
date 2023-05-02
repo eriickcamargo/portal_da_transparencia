@@ -10,7 +10,7 @@ def sendEmail():
     try:
         emailBody = f"Bom dia, \nAqui está a resultado da varredura no Portal da Transparência, até amanhã!"
         title = f"Portal da Transparência - Pendências"
-        attachments = ['CONTRATOS.xlsx','CONVENIOS.xlsx','LICITACOES.xlsx']
+        attachments = ['CONTRATOS.xlsx']
         bcc = 'seplan@maraba.pa.gov.br,contratos.seplan@maraba.pa.gov.br'
 
         ezgmail.send(recipient='ericklimacamargo@gmail.com',
@@ -33,13 +33,13 @@ def main():
     start_timer = time.time() 
 
     #Filtro de Convenios
-    filtroConvenios.main()
+    #filtroConvenios.main()
 
     #Filtro de Contratos:
     filtroContrato.main()
 
     # Filtro de Licitações
-    filtroLicitacao.main()
+    #filtroLicitacao.main()
 
     #Envia e-mail
     sendEmail()

@@ -7,9 +7,10 @@ from datetime import date
 import pandas as pd
 import numpy as np
 
-I_DATA = '01/01/2022'
+I_DATA = '03/01/2023'
 F_DATA = date.today().strftime("%d/%m/%Y")
-URL_CONTRATO = str(f"http://www.governotransparente.com.br/acessoinfo/44669490/consultarcontratoaditivo?ano=5&credor=-1&page=1&datainfo=%22MTIwMjIwNTIwMDkzOFBQUA==%22&inicio={I_DATA}&fim={F_DATA}&unid=&valormax=&valormin=")
+#F_DATA = '05/01/2023'
+URL_CONTRATO = str(f"http://www.governotransparente.com.br/acessoinfo/44669490/consultarcontratoaditivo?ano=6&credor=-1&page=1&datainfo=%22MTIwMjIwNTIwMDkzOFBQUA==%22&inicio={I_DATA}&fim={F_DATA}&unid=&valormax=&valormin=")
 NUM_CONTRATO = []
 CONTRATOS_SEM_ANEXO = []
 
@@ -71,11 +72,11 @@ def excelCreator():
     # Escrevendo os dados coletados em uma Planilha
     array = np.array(CONTRATOS_SEM_ANEXO)
     df = pd.DataFrame(array)
-    df.to_excel(excel_writer='CONTRATOS.xlsx', index=False,sheet_name='CONTRATOS',header=['data cadastrada','n. do contrato','total de anexos'])
+    df.to_excel(excel_writer='CONTRATOS.xlsx',index=False,sheet_name='CONTRATOS',header=['data cadastrada','n. do contrato','total de anexos'],startcol=1,startrow=1)
 
 def main():
 
-    print('Filtro de Contratos Iniciado\n')
+    print(f"Filtro de Contratos Iniciado\nData de Inicio: {I_DATA}\nData de Finalização: {F_DATA}\n")
     crawlingData()
     filtroSemAnexo()
     excelCreator()
